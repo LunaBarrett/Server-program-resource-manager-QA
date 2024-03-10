@@ -1,1 +1,0 @@
-# Server-program-resource-manager-QA
