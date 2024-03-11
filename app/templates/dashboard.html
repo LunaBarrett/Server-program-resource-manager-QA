@@ -1,0 +1,18 @@
+<!-- app/templates/dashboard.html -->
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<h2>Dashboard</h2>
+<p>Welcome, {{ current_user.username }}! This is your dashboard.</p>
+<!-- Include server resource monitoring data and controls here -->
+<h2>Latest Server Resource Usage</h2>
+<ul>
+    <li>CPU Usage: {{ latest_data.cpu_usage }}%</li>
+    <img src="{{ url_for('static', filename='images/cpu_usage.png') }}" alt="CPU Usage Graph">
+    <li>Memory Usage: {{ latest_data.memory_usage }}%</li>
+    <li>Disk Usage: {{ latest_data.disk_usage }}%</li>
+    <li>Network Usage: {{ latest_data.network_usage }}</li>
+</ul>
+{% endblock %}
