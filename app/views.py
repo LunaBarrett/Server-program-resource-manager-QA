@@ -113,4 +113,32 @@ def dashboard():
     latest_data = ServerResourceUsage.query.order_by(ServerResourceUsage.timestamp.desc()).first()
     return render_template('dashboard.html', latest_data=latest_data)
 
+@app.route('/admin/dashboard')
+@login_required
+def admin_dashboard():
+    if not current_user.is_admin:
+        flash('Access denied: Admins only.')
+        return redirect(url_for('index'))
+
+    users = User.query.all()
+    return render_template('admin_dashboard.html', users=users)
+
+
+@app.route('/grant_admin/<int:user_id>', methods=['POST'])
+@login_required
+def grant_admin(user_id):
+    if not current_user.is_admin:
+        flash('Access denied: Admins only.')
+        return redirect(url_for('index'))
+
+    user = User.query.get(user_id)
+    if user:
+        user.is_admin = True
+        db.session.commit()
+        flash(f'{user.username} has been granted admin status.')
+    else:
+        flash('User not found.')
+
+    return redirect(url_for('admin_dashboard'))
+
 
