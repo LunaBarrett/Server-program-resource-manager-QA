@@ -21,8 +21,28 @@ def add_resource_usage():
 
     db.session.add(resource_usage)
     db.session.commit()
+
+
+    keep_recent_entries()
+
+
     return jsonify({'message': 'Resource usage added successfully'}), 201
 
+
+def keep_recent_entries():
+    # Get the count of all entries
+    total_entries = ServerResourceUsage.query.count()
+
+    # If more than ten entries, delete the oldest
+    if total_entries > 10:
+        # Get the oldest entries that exceed the limit of 10
+        excess_entries = ServerResourceUsage.query.order_by(ServerResourceUsage.timestamp.asc()).limit(
+            total_entries - 10).all()
+
+        for entry in excess_entries:
+            db.session.delete(entry)
+
+        db.session.commit()
 
 @api.route('/resource_usage', methods=['GET'])
 def get_resource_usage():
