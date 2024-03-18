@@ -17,6 +17,7 @@
                 {% if current_user.is_authenticated %}
                     <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
                     <li><a href="{{ url_for('admin_dashboard') }}">Admin_Dashboard</a></li>
+                    <li><a href="{{ url_for('profile') }}">Profile</a></li>
                     <li><a href="{{ url_for('logout') }}">Logout</a></li>
                 {% else %}
                     <li><a href="{{ url_for('login') }}">Login</a></li>
@@ -31,19 +32,7 @@
     <footer>
         <p>&copy; {{ year }} Server Resource Monitoring Application</p>
     </footer>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            fetch('/api/resource_usage')
-                .then(response => response.json())
-                .then(data => {
-                    // Use the data to update the page dynamically
-                    console.log(data);
-                })
-                .catch(error => {
-                    console.error('Error fetching data: ', error);
-                });
-        });
-    </script>
+
 </body>
 </html>
 

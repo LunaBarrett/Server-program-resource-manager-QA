@@ -1,0 +1,40 @@
+<!-- app/templates/profile.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Profile</h2>
+<p>Username: {{ current_user.username }}</p>
+<p>Admin: {{ 'Yes' if current_user.is_admin else 'No' }}</p>
+
+<h3>Change Password</h3>
+<form action="" method="post">
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.old_password.label }}<br>
+        {{ form.old_password(size=32) }}<br>
+        {% for error in form.old_password.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.new_password.label }}<br>
+        {{ form.new_password(size=32) }}<br>
+        {% for error in form.new_password.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.new_password_repeat.label }}<br>
+        {{ form.new_password_repeat(size=32) }}<br>
+        {% for error in form.new_password_repeat.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <p>{{ form.submit() }}</p>
+</form>
+<h3>Account Deletion</h3>
+<form action="{{ url_for('delete_own_account') }}" method="post" style="margin-top: 20px;">
+    {{ form.hidden_tag() }}
+    <input type="submit" value="Delete My Account" onclick="return confirm('Are you sure you want to delete your account? This cannot be undone.');">
+</form>
+{% endblock %}
