@@ -54,6 +54,23 @@ def dashboard():
     latest_data = ServerResourceUsage.query.order_by(ServerResourceUsage.timestamp.desc()).first()
     return render_template('dashboard.html', latest_data=latest_data)
 
+
+@app.route('/delete_own_account', methods=['POST'])
+@login_required
+def delete_own_account():
+    user_id = current_user.id
+    user_to_delete = User.query.get(user_id)
+    if user_to_delete:
+        db.session.delete(user_to_delete)
+        db.session.commit()
+        logout_user()  # Log the user out after deleting the account
+        flash('Your account has been successfully deleted.')
+        return redirect(url_for('index'))
+    else:
+        flash('Account not found.')
+        return redirect(url_for('profile'))
+
+
 @app.route('/admin/dashboard')
 @login_required
 def admin_dashboard():
@@ -77,6 +94,24 @@ def grant_admin(user_id):
         user.is_admin = True
         db.session.commit()
         flash(f'{user.username} has been granted admin status.')
+    else:
+        flash('User not found.')
+
+    return redirect(url_for('admin_dashboard'))
+
+
+@app.route('/delete_account/<int:user_id>', methods=['POST'])
+@login_required
+def delete_account(user_id):
+    if not current_user.is_admin:
+        flash('Access denied: Admins only.')
+        return redirect(url_for('index'))
+
+    user_to_delete = User.query.get(user_id)
+    if user_to_delete:
+        db.session.delete(user_to_delete)
+        db.session.commit()
+        flash(f'Account {user_to_delete.username} has been deleted.')
     else:
         flash('User not found.')
 

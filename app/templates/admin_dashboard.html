@@ -9,7 +9,8 @@
     <tr>
         <th>Username</th>
         <th>Admin Status</th>
-        <th>Action</th>
+        <th>Grant Admin</th>
+        <th>Delete User</th>
     </tr>
     {% for user in users %}
     <tr>
@@ -18,7 +19,14 @@
         <td>
             {% if not user.is_admin %}
             <form action="{{ url_for('grant_admin', user_id=user.id) }}" method="post">
-                <input type="submit" value="Grant Admin Status">
+                <input type="submit" value="Grant Admin Status" onclick="return confirm('Are you sure?');">
+            </form>
+            {% endif %}
+        </td>
+        <td>
+            {% if not user.is_admin %}
+            <form action="{{ url_for('delete_account', user_id=user.id) }}" method="post" style="display: inline;">
+                <input type="submit" value="Delete Account" onclick="return confirm('Are you sure?');">
             </form>
             {% endif %}
         </td>
