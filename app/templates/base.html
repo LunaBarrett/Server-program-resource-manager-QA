@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %} - Server Resource Monitoring Application</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-    <!-- Include Bootstrap CSS or other stylesheets here if needed -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <header>
@@ -31,18 +31,46 @@
     <footer>
         <p>&copy; {{ year }} Server Resource Monitoring Application</p>
     </footer>
+
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function() {
+        var ctx = document.getElementById('cpuUsageChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [], // X-axis labels
+                datasets: [{
+                    label: 'CPU Usage',
+                    data: [], // Data points
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        suggestedMax: 100 // Assuming CPU usage is a percentage
+                    }
+                }
+            }
+        });
+
+        function updateChartData() {
             fetch('/api/resource_usage')
                 .then(response => response.json())
                 .then(data => {
-                    // Use the data to update the page dynamically
-                    console.log(data);
+                    // Assuming 'data' is an array of the latest resource usage records
+                    chart.data.labels = data.map(record => new Date(record.timestamp).toLocaleTimeString());
+                    chart.data.datasets[0].data = data.map(record => record.cpu_usage);
+                    chart.update();
                 })
-                .catch(error => {
-                    console.error('Error fetching data: ', error);
-                });
-        });
+                .catch(error => console.error('Error fetching data:', error));
+        }
+
+        // Update the chart every 5 seconds
+        setInterval(updateChartData, 5000);
+    });
     </script>
 </body>
 </html>
