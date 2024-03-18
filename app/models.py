@@ -24,7 +24,6 @@ class ServerResourceUsage(db.Model):
     cpu_usage = db.Column(db.Float)
     memory_usage = db.Column(db.Float)
     disk_usage = db.Column(db.Float)
-    network_usage = db.Column(db.Float)
 
 # If you're using Flask-Migrate, you don't need to manually create the tables,
 # as Flask-Migrate will handle that for you.

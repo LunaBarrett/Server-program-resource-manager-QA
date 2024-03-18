@@ -16,6 +16,5 @@ CREATE TABLE server_resource_usage (
     timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
     cpu_usage FLOAT NOT NULL,
     memory_usage FLOAT NOT NULL,
-    disk_usage FLOAT NOT NULL,
-    network_usage FLOAT NOT NULL
+    disk_usage FLOAT NOT NULL
 );

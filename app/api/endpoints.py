@@ -16,7 +16,6 @@ def add_resource_usage():
         cpu_usage=data.get('cpu_usage'),
         memory_usage=data.get('memory_usage'),
         disk_usage=data.get('disk_usage'),
-        network_usage=data.get('network_usage')
     )
 
     db.session.add(resource_usage)
@@ -55,7 +54,5 @@ def get_resource_usage():
         'cpu_usage': latest_data.cpu_usage,
         'memory_usage': latest_data.memory_usage,
         'disk_usage': latest_data.disk_usage,
-        'network_usage': latest_data.network_usage
     }), 200
 
-# You can add more API endpoints as needed

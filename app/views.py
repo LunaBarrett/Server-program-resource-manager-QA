@@ -59,7 +59,6 @@ def generate_graphs():
     cpu_usages = [data.cpu_usage for data in data_points]
     memory_usages = [data.memory_usage for data in data_points]
     disk_usages = [data.disk_usage for data in data_points]
-    network_usages = [data.network_usage for data in data_points]
     # ... other resources
 
     # Generate and save the Memory usage graph
@@ -80,16 +79,6 @@ def generate_graphs():
     plt.title('Disk Usage Over Time')
     plt.legend()
     plt.savefig(os.path.join(app.static_folder, 'images', 'disk_usage.png'))
-    plt.close()
-
-    # Generate and save the Network usage graph
-    plt.figure(figsize=(10, 5))
-    plt.plot(timestamps, network_usages, label='Network Usage')
-    plt.xlabel('Time')
-    plt.ylabel('Network Usage (%)')
-    plt.title('Network Usage Over Time')
-    plt.legend()
-    plt.savefig(os.path.join(app.static_folder, 'images', 'network_usage.png'))
     plt.close()
 
     # Generate and save the CPU usage graph

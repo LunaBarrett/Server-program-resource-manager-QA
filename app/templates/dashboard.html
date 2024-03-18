@@ -15,7 +15,5 @@
     <img src="{{ url_for('static', filename='images/memory_usage.png') }}" alt="Memory Usage Graph">
     <li>Disk Usage: {{ latest_data.disk_usage }}%</li>
     <img src="{{ url_for('static', filename='images/disk_usage.png') }}" alt="Disk Usage Graph">
-    <li>Network Usage: {{ latest_data.network_usage }}</li>
-    <img src="{{ url_for('static', filename='images/network_usage.png') }}" alt="Network Usage Graph">
 </ul>
 {% endblock %}
