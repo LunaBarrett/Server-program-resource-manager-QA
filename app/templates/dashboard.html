@@ -12,7 +12,8 @@
     <li>CPU Usage: {{ latest_data.cpu_usage }}%</li>
     <img src="{{ url_for('static', filename='images/cpu_usage.png') }}" alt="CPU Usage Graph">
     <li>Memory Usage: {{ latest_data.memory_usage }}%</li>
+    <img src="{{ url_for('static', filename='images/memory_usage.png') }}" alt="Memory Usage Graph">
     <li>Disk Usage: {{ latest_data.disk_usage }}%</li>
-    <li>Network Usage: {{ latest_data.network_usage }}</li>
+    <img src="{{ url_for('static', filename='images/disk_usage.png') }}" alt="Disk Usage Graph">
 </ul>
 {% endblock %}

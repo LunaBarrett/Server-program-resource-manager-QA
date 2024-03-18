@@ -58,7 +58,28 @@ def generate_graphs():
     timestamps = [data.timestamp for data in data_points]
     cpu_usages = [data.cpu_usage for data in data_points]
     memory_usages = [data.memory_usage for data in data_points]
+    disk_usages = [data.disk_usage for data in data_points]
     # ... other resources
+
+    # Generate and save the Memory usage graph
+    plt.figure(figsize=(10, 5))
+    plt.plot(timestamps, memory_usages, label='Memory(RAM) Usage')
+    plt.xlabel('Time')
+    plt.ylabel('Memory Usage (%)')
+    plt.title('Memory(RAM) Usage Over Time')
+    plt.legend()
+    plt.savefig(os.path.join(app.static_folder, 'images', 'memory_usage.png'))
+    plt.close()
+
+    # Generate and save the Disk usage graph
+    plt.figure(figsize=(10, 5))
+    plt.plot(timestamps, disk_usages, label='Disk Usage')
+    plt.xlabel('Time')
+    plt.ylabel('Disk Usage (%)')
+    plt.title('Disk Usage Over Time')
+    plt.legend()
+    plt.savefig(os.path.join(app.static_folder, 'images', 'disk_usage.png'))
+    plt.close()
 
     # Generate and save the CPU usage graph
     plt.figure(figsize=(10, 5))
@@ -80,5 +101,33 @@ def dashboard():
     # Retrieve the latest resource usage data from the database
     latest_data = ServerResourceUsage.query.order_by(ServerResourceUsage.timestamp.desc()).first()
     return render_template('dashboard.html', latest_data=latest_data)
+
+@app.route('/admin/dashboard')
+@login_required
+def admin_dashboard():
+    if not current_user.is_admin:
+        flash('Access denied: Admins only.')
+        return redirect(url_for('index'))
+
+    users = User.query.all()
+    return render_template('admin_dashboard.html', users=users)
+
+
+@app.route('/grant_admin/<int:user_id>', methods=['POST'])
+@login_required
+def grant_admin(user_id):
+    if not current_user.is_admin:
+        flash('Access denied: Admins only.')
+        return redirect(url_for('index'))
+
+    user = User.query.get(user_id)
+    if user:
+        user.is_admin = True
+        db.session.commit()
+        flash(f'{user.username} has been granted admin status.')
+    else:
+        flash('User not found.')
+
+    return redirect(url_for('admin_dashboard'))
 
 

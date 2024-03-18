@@ -4,7 +4,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
 
-
 class User(UserMixin,db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), unique=True, nullable=False)
@@ -25,7 +24,6 @@ class ServerResourceUsage(db.Model):
     cpu_usage = db.Column(db.Float)
     memory_usage = db.Column(db.Float)
     disk_usage = db.Column(db.Float)
-    network_usage = db.Column(db.Float)
 
 # If you're using Flask-Migrate, you don't need to manually create the tables,
 # as Flask-Migrate will handle that for you.
