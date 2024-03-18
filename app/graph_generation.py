@@ -3,6 +3,7 @@ from app.models import ServerResourceUsage
 import os
 from app import app
 
+
 def generate_graphs():
     # Query the last N resource usage records from the database
     data_points = ServerResourceUsage.query.order_by(ServerResourceUsage.timestamp.desc()).limit(100).all()

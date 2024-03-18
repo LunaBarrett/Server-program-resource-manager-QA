@@ -11,6 +11,7 @@ from app.graph_generation import generate_graphs
 def index():
     return render_template('index.html', title='Home Page')
 
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
@@ -24,6 +25,7 @@ def register():
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -41,24 +43,6 @@ def login():
             next_page = url_for('index')
         return redirect(next_page)
     return render_template('login.html', title='Sign In', form=form)
-
-@app.route('/logout')
-def logout():
-    logout_user()
-    return redirect(url_for('index'))
-
-
-@app.route('/profile', methods=['GET', 'POST'])
-@login_required
-def profile():
-    form = PasswordUpdateForm()
-    if form.validate_on_submit():
-        # Use the model's set_password method to update the password
-        current_user.set_password(form.password.data)
-        db.session.commit()
-        flash('Your password has been updated.')
-        return redirect(url_for('profile'))
-    return render_template('profile.html', title='Profile', form=form)
 
 
 @app.route('/dashboard')
@@ -97,5 +81,25 @@ def grant_admin(user_id):
         flash('User not found.')
 
     return redirect(url_for('admin_dashboard'))
+
+
+@app.route('/profile', methods=['GET', 'POST'])
+@login_required
+def profile():
+    form = PasswordUpdateForm()
+    if form.validate_on_submit():
+        # Use the model's set_password method to update the password
+        current_user.set_password(form.new_password.data)
+        db.session.commit()
+        flash('Your password has been updated.')
+        return redirect(url_for('profile'))
+    return render_template('profile.html', title='Profile', form=form)
+
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
+
 
 
