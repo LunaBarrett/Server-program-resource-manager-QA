@@ -6,7 +6,7 @@ API_ENDPOINT = 'http://localhost:5000/api/resource_usage'
 
 def collect_and_send_data():
     # Collect server resource usage data
-    cpu_usage = psutil.cpu_percent(interval=1)
+    cpu_usage = psutil.cpu_percent(interval=1.0)
     memory_usage = psutil.virtual_memory().percent
     disk_usage = psutil.disk_usage('/').percent
 
