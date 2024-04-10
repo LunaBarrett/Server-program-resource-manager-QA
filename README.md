@@ -1,13 +1,12 @@
 # Server Resource Monitoring Application
 
-This web application is designed to monitor the resource usage of different programs on a server. It allows users to create accounts, log in, and view resource usage data. Admin users have additional privileges to manage the monitoring parameters and view more detailed analytics.
+This web application is designed to monitor the resource usage of different programs on a server. It allows users to create accounts, log in, and view resource usage data. Admin users have additional privileges to manage user accounts.
 
 ## Features
 
 - User authentication system with standard and admin roles.
-- Real-time monitoring of server resource usage, including CPU, memory, disk, and network.
+- Real-time monitoring of server resource usage, including CPU, memory, and disk.
 - Historical data analysis and visualization.
-- Alerts and notifications for resource usage thresholds.
 - Admin dashboard for advanced monitoring control.
 
 ## Getting Started
@@ -60,19 +59,6 @@ Add additional notes about how to deploy this on a live system.
 - SQLite - Database engine
 - SQLAlchemy - ORM and database toolkit
 
-## Contributing
-
-Please read CONTRIBUTING.md for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use SemVer for versioning. For the versions available, see the tags on this repository.
-
-## Authors
-
-- *Luna Barrett* - *Initial work* - YourUsername
-
-See also the list of contributors who participated in this project.
 
 ## License
 

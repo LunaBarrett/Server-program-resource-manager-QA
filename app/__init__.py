@@ -1,5 +1,4 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_apscheduler import APScheduler
 from config import Config
@@ -8,15 +7,11 @@ from scripts.collect_data import collect_and_send_data
 from app.extensions import db, migrate
 
 
-
 # Initialize the Flask application
 app = Flask(__name__)
 
 # Load the configuration from the config.py file
 app.config.from_object(Config)
-
-# Initialize SQLAlchemy with the Flask app
-#db = SQLAlchemy(app)
 
 # Initialize extensions
 db.init_app(app)
@@ -33,9 +28,6 @@ scheduler.start()
 def job():
     collect_and_send_data()
 
-
-# Initialize Flask-Migrate for database migrations
-#migrate = Migrate(app, db)
 
 # Initialize Flask-Login
 login_manager = LoginManager(app)
@@ -55,6 +47,4 @@ from app import models, views
 @login_manager.user_loader
 def load_user(user_id):
     return models.User.query.get(int(user_id))
-
-# You can add any other initialization code here
 

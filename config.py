@@ -17,23 +17,19 @@ class Config(object):
     MAIL_PASSWORD = os.getenv('MAIL_PASSWORD')
     ADMINS = ['your-email@example.com']  # List of admin email addresses
 
-    # Monitoring Configuration (add any additional configuration needed for monitoring)
+    # Monitoring Configuration
     MONITORING_INTERVAL = 60  # Time in seconds between each server check
 
 
 class DevelopmentConfig(Config):
     DEBUG = True
-    # Development specific configurations can be added here
 
 
 class TestingConfig(Config):
     TESTING = True
-    # Testing specific configurations can be added here
 
 
 class ProductionConfig(Config):
-    # Production specific configurations can be added here
     pass
 
 
-# You can add more configuration classes if needed
