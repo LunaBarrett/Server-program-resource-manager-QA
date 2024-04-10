@@ -1,8 +1,9 @@
 import requests
 import psutil
 
-# Replace with the actual URL of your Flask application's API endpoint
+# Sets the api endpoint for the flask application to use
 API_ENDPOINT = 'http://localhost:5000/api/resource_usage'
+
 
 def collect_and_send_data():
     # Collect server resource usage data
@@ -23,7 +24,6 @@ def collect_and_send_data():
         print('Data sent successfully')
     else:
         print('Failed to send data', response.content)
-
 
 
 if __name__ == '__main__':

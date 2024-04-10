@@ -6,6 +6,7 @@ from werkzeug.security import check_password_hash
 from flask_login import current_user
 
 
+# Logic for registering a new user
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=3, max=20)])
     password = PasswordField('Password', validators=[DataRequired(), Length(min=6, max=35)])
@@ -20,6 +21,7 @@ class RegistrationForm(FlaskForm):
             raise ValidationError('Please use a different username.')
 
 
+# logic for ensuring login details are correct
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=3, max=20)])
     password = PasswordField('Password', validators=[DataRequired()])
@@ -27,6 +29,7 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Sign In')
 
 
+# logic for updating a users password
 class PasswordUpdateForm(FlaskForm):
     old_password = PasswordField('Old Password', validators=[DataRequired()])
     new_password = PasswordField('New Password', validators=[

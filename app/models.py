@@ -4,6 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
 
+# Creates a class that contains all details about a user
 class User(UserMixin,db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), unique=True, nullable=False)
@@ -17,7 +18,7 @@ class User(UserMixin,db.Model):
         return check_password_hash(self.password_hash, password)
 
 
-# You can add additional models here as needed, such as a model for server resource data
+# Creates a class that contains all resource usage data
 class ServerResourceUsage(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
@@ -25,5 +26,3 @@ class ServerResourceUsage(db.Model):
     memory_usage = db.Column(db.Float)
     disk_usage = db.Column(db.Float)
 
-# If you're using Flask-Migrate, you don't need to manually create the tables,
-# as Flask-Migrate will handle that for you.
