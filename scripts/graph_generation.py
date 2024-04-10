@@ -13,7 +13,6 @@ def generate_graphs():
     cpu_usages = [data.cpu_usage for data in data_points]
     memory_usages = [data.memory_usage for data in data_points]
     disk_usages = [data.disk_usage for data in data_points]
-    # ... other resources
 
     # Generate and save the Memory usage graph
     plt.figure(figsize=(10, 5))
